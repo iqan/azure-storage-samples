@@ -1,6 +1,7 @@
 ﻿namespace AzureStorageSamples.Processor
 {
     using AzureStorageSamples.Infrastructure.BlobStorage;
+    using System;
     using System.IO;
 
     public class BlobStorageProcessor : IProcessor
@@ -16,7 +17,7 @@
         {
             var data = this.blobStorage.ReadFileAsStringAsync().Result;
             var streamToUpload = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(data));
-            var fileName = "file1";
+            var fileName = DateTime.Now + ".txt";
             var result = this.blobStorage.UploadFileAsync(streamToUpload, fileName).Result;
             if (!result)
             {
